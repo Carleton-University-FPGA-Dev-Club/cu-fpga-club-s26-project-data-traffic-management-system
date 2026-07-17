@@ -52,7 +52,7 @@ traffic_manager manager (
     .packet_valid(packet_valid),
     .suspicious(suspicious),
     .normal_count(normal_count),
-    .suspicious_count(suspicious_count)
+    .suspicious_count(suspicious_count),
     .dropped_count(dropped_count)
 );
 
