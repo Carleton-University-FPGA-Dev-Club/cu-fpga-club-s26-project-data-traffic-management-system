@@ -4,20 +4,24 @@
 
 This project implements a simplified FPGA-based packet traffic management system using Verilog on the Digilent Zybo Z7-10 FPGA board.
 
-The system generates network packets, inspects them for suspicious patterns, and tracks traffic statistics in real time. The goal is to demonstrate how FPGA hardware can be used for high-speed packet processing and traffic analysis.
+The system generates network packets, buffers them through a FIFO queue, inspects them for suspicious patterns, and tracks traffic statistics in real time. The goal is to demonstrate how FPGA hardware can be used for high-speed packet processing and traffic analysis.
 
 ## Team Members
 
-* Leen Naser
-* Olivia Fullerton
+* **Leen Naser**
+* **Olivia Fullerton**
 
 ## Project Architecture
 
-The design consists of four main modules:
+The design consists of five main modules:
 
 ### Packet Generator
 
 Generates simulated network packets and marks packets as either normal or suspicious.
+
+### FIFO Queue
+
+Buffers packets between the packet generator and packet inspector using a First-In, First-Out (FIFO) queue to simulate realistic packet flow.
 
 ### Packet Inspector
 
@@ -38,6 +42,7 @@ Integrates all modules into a complete packet processing pipeline.
 ## Current Features
 
 * Packet generation
+* FIFO packet buffering
 * Suspicious packet detection
 * Traffic classification
 * Packet counting
@@ -50,18 +55,18 @@ Integrates all modules into a complete packet processing pipeline.
 ### Design Files
 
 * `packet_generator.v`
+* `fifo_queue.v`
 * `packet_inspector.v`
 * `traffic_manager.v`
 * `top.v`
-* fifo_q.v
 
 ### Testbenches
 
 * `packet_generator_tb.v`
+* `fifo_queue_tb.v`
 * `packet_inspector_tb.v`
 * `traffic_manager_tb.v`
 * `top_tb.v`
-* fifo_q_tb.v
 
 ## Development Tools
 
@@ -71,7 +76,6 @@ Integrates all modules into a complete packet processing pipeline.
 
 ## Future Improvements
 
-* FIFO packet buffering
 * Packet prioritization
 * LED-based traffic visualization
 * UART statistics output
@@ -80,4 +84,4 @@ Integrates all modules into a complete packet processing pipeline.
 
 ## Status
 
-Current status: Functional simulation completed. Hardware deployment and advanced traffic management features are in progress.
+**Current Status:** Functional simulation completed. Hardware deployment and advanced traffic management features are in progress.
