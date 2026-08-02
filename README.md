@@ -53,6 +53,7 @@ Integrates all modules into a complete packet processing pipeline.
 * `packet_inspector.v`
 * `traffic_manager.v`
 * `top.v`
+* fifo_q.v
 
 ### Testbenches
 
@@ -60,6 +61,7 @@ Integrates all modules into a complete packet processing pipeline.
 * `packet_inspector_tb.v`
 * `traffic_manager_tb.v`
 * `top_tb.v`
+* fifo_q_tb.v
 
 ## Development Tools
 
