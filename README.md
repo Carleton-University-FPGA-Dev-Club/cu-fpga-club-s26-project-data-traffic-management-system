@@ -155,6 +155,20 @@ Blinks approximately every half second to indicate that the FPGA system is activ
 
 Holding **BTN0** resets the packet counters, detected-event flags, and LED animation state.
 
+### Hardware Demonstration Images
+
+**FPGA operating with all four user LEDs active:**
+
+![Zybo Z7-20 FPGA with all LEDs active](images/hardware_all_leds.jpg)
+
+**Example LED traffic visualization pattern:**
+
+![Zybo Z7-20 FPGA LED traffic pattern](images/hardware_led_pattern.jpg)
+
+**BTN0 hardware reset demonstration:**
+
+![Zybo Z7-20 FPGA reset button demonstration](images/hardware_reset.jpg)
+
 ## Verification
 
 The design was tested using both module-level and complete system-level behavioral simulations in Vivado.
@@ -184,6 +198,10 @@ Verifies:
 - Overflow protection
 - `data_valid` behavior
 
+**FIFO queue behavioral simulation:**
+
+![FIFO queue behavioral simulation](images/fifo_simulation.png)
+
 ### Packet Inspector Testbench
 
 `packet_inspector_tb.v`
@@ -194,6 +212,10 @@ Verifies classification of:
 - `0xC` headers as suspicious
 - `0xF` headers as malformed
 - `0xB` headers as normal
+
+**Packet inspector behavioral simulation:**
+
+![Packet inspector behavioral simulation](images/packet_inspector_simulation.png)
 
 ### Traffic Manager Testbench
 
@@ -225,10 +247,22 @@ Traffic Manager
 
 The system-level simulation confirms that normal, suspicious, and dropped traffic are all produced and processed by the integrated design.
 
+**Complete system behavioral simulation:**
+
+![Complete system behavioral simulation](images/system_simulation.png)
+
 ## Repository Structure
 
 ```text
 .
+├── images/
+│   ├── fifo_simulation.png
+│   ├── hardware_all_leds.jpg
+│   ├── hardware_led_pattern.jpg
+│   ├── hardware_reset.jpg
+│   ├── packet_inspector_simulation.png
+│   └── system_simulation.png
+│
 ├── src/
 │   ├── board_top.v
 │   ├── fifo_queue.v
