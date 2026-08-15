@@ -7,51 +7,62 @@
 // Design Name: FPGA Traffic Management System
 // Module Name: packet_inspector
 // Project Name: Data Traffic Management System
+// Target Device: Digilent Zybo Z7-20
+// Tool Version: Vivado 2025.2
 //
 // Description:
-// Examines the header of each valid 16-bit packet and classifies the
-// packet as suspicious, malformed, or normal.
+// Inspects the upper 4-bit packet header and classifies each valid packet.
 //
-// Packet classification:
-//   Header A -> Suspicious
-//   Header C -> Suspicious
-//   Header F -> Malformed
-//   Other    -> Normal
+// Header classifications:
+//   4'hA - Suspicious
+//   4'hC - Suspicious
+//   4'hF - Malformed
+//   Other - Normal
+//
+// The suspicious and malformed outputs are registered and updated only when
+// packet_valid is asserted.
+//
+// Dependencies:
+// None
+//
+// Revision:
+// Revision 1.00 - Final integrated project version
 //////////////////////////////////////////////////////////////////////////////////
 
 module packet_inspector(
-    input wire clk,
-    input wire [15:0] packet_data,
-    input wire packet_valid,
-    output reg suspicious,
-    output reg malformed
+    input  wire        clk,
+    input  wire        reset,
+    input  wire [15:0] packet_data,
+    input  wire        packet_valid,
+    output reg         suspicious,
+    output reg         malformed
 );
 
 always @(posedge clk) begin
-    if (packet_valid) begin
-        suspicious <= 0;
-        malformed <= 0;
-
+    if (reset) begin
+        suspicious <= 1'b0;
+        malformed  <= 1'b0;
+    end
+    else if (packet_valid) begin
         case (packet_data[15:12])
 
             // Suspicious packet headers
-            4'hA: begin
-                suspicious <= 1;
-            end
-
+            4'hA,
             4'hC: begin
-                suspicious <= 1;
+                suspicious <= 1'b1;
+                malformed  <= 1'b0;
             end
 
             // Malformed packet header
             4'hF: begin
-                malformed <= 1;
+                suspicious <= 1'b0;
+                malformed  <= 1'b1;
             end
 
-            // All other packet headers are normal
+            // Normal packet
             default: begin
-                suspicious <= 0;
-                malformed <= 0;
+                suspicious <= 1'b0;
+                malformed  <= 1'b0;
             end
 
         endcase
